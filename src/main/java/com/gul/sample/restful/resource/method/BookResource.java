@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.gul.sample.restful.server.method;
+package com.gul.sample.restful.resource.method;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Produces;

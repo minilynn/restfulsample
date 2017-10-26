@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Properties>
+		<Property name="pattern_layout">%d %-5p (%F:%L) - %m%n</Property>
+	</Properties>
+
+	<Appenders>
+		<Console name="console" target="SYSTEM_OUT" follow="true">
+			<PatternLayout pattern="${pattern_layout}" />
+		</Console>
+
+		<RollingRandomAccessFile name="file" fileName="restful.log"
+			filePattern="restful.log.%d{yyyy-MM-dd}">
+			<PatternLayout
+				pattern="[%l][%d{yyyy-MM-dd HH:mm:ss SSS}][%-5p][userMessage=%m]%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+		</RollingRandomAccessFile>
+	</Appenders>
+
+	<Loggers>
+		<!-- tair Loggers -->
+		<Logger name="com.gul" level="DEBUG" includeLocation="true"
+			additivity="false">
+			<AppenderRef ref="file" />
+			<AppenderRef ref="console" />
+		</Logger>
+
+		<!-- 3rdparty Loggers -->
+		<Logger name="org.springframework" level="WARN" />
+		<Logger name="org.apache.zookeeper" level="ERROR" />
+		<Logger name="org.springframework.web" level="WARN" />
+
+		<!-- Root Logger -->
+		<Root level="INFO" includeLocation="true">
+			<AppenderRef ref="file" />
+			<AppenderRef ref="console" />
+		</Root>
+	</Loggers>
+</Configuration>

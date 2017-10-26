@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.gul.sample.restful.server;
+package com.gul.sample.restful.resource.domain;
 
 import java.util.Date;
 import java.util.List;
