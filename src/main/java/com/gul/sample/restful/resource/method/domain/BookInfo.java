@@ -5,11 +5,15 @@ package com.gul.sample.restful.resource.method.domain;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  *
  * @author Lynn
  *
  */
+@XmlRootElement
 public class BookInfo {
 	private String title;
 	private String author;
@@ -20,6 +24,7 @@ public class BookInfo {
 	/**
 	 * @return the title
 	 */
+	@XmlElement(name="longTitle")
 	public String getTitle() {
 		return title;
 	}
