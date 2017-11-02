@@ -4,7 +4,10 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Configuration;
 import javax.ws.rs.core.Form;
+
+import org.glassfish.jersey.client.ClientConfig;
 
 import com.gul.sample.restful.server.MyServer;
 
@@ -58,7 +61,10 @@ public class MyClient {
 		try {
 			// 首先启动服务器
 			MyServer.startServer();
+			// ClientConfig config = new ClientConfig();
+			// config.getRuntimeType().
 			client = ClientBuilder.newClient();
+			Configuration config = client.getConfiguration();
 			WebTarget target = client.target("http://127.0.0.1:8080/restfulsample");
 
 			// GET请求
