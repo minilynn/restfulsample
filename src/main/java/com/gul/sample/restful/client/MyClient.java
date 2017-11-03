@@ -1,13 +1,20 @@
 package com.gul.sample.restful.client;
 
+import java.net.InetAddress;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Configuration;
 import javax.ws.rs.core.Form;
 
+import org.apache.http.client.config.RequestConfig;
+import org.glassfish.jersey.apache.connector.ApacheClientProperties;
+import org.glassfish.jersey.apache.connector.ApacheConnectorProvider;
 import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.client.spi.ConnectorProvider;
+import org.glassfish.jersey.grizzly.connector.GrizzlyConnectorProvider;
+import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpContainerProvider;
 
 import com.gul.sample.restful.server.MyServer;
 
@@ -61,11 +68,17 @@ public class MyClient {
 		try {
 			// 首先启动服务器
 			MyServer.startServer();
-			// ClientConfig config = new ClientConfig();
-			// config.getRuntimeType().
-			client = ClientBuilder.newClient();
-			Configuration config = client.getConfiguration();
-			WebTarget target = client.target("http://127.0.0.1:8080/restfulsample");
+//			GrizzlyConnectorProvider connector = new GrizzlyConnectorProvider();
+			ApacheConnectorProvider connector = new ApacheConnectorProvider();
+			ClientConfig config = new ClientConfig();
+			config.connectorProvider(connector);
+//			RequestConfig reqConfig = RequestConfig.custom().setConnectTimeout(2000).setSocketTimeout(2000)
+//					.setConnectionRequestTimeout(200).build();
+//			config.property(ApacheClientProperties.REQUEST_CONFIG, reqConfig);
+			client = ClientBuilder.newClient(config);
+			// client = ClientBuilder.newClient();
+			String ip = InetAddress.getLocalHost().getHostAddress();
+			WebTarget target = client.target("http://" + ip + ":8080/restfulsample");
 
 			// GET请求
 			// getRequest(target);
