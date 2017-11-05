@@ -12,6 +12,8 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.gul.sample.restful.server.provider.SampleRequestFilter2;
+
 /**
  *
  * @author Lynn
@@ -34,7 +36,9 @@ public class MyServer {
 		// create a resource config that scans for JAX-RS resources and providers
 		// in the specified package
 		final ResourceConfig rc = new ResourceConfig().packages("com.gul.sample.restful.resource",
-				"com.gul.sample.restful.resource.method");
+				"com.gul.sample.restful.resource.method", "com.gul.sample.restful.server.provider");
+		rc.register(SampleRequestFilter2.class);
+		rc.register(MyFeature.class);
 
 		// create and start a new instance of grizzly http server
 		// exposing the Jersey application at BASE_URI
